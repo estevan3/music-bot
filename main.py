@@ -12,7 +12,7 @@ load_dotenv()
 
 intents = discord.Intents.default()
 intents.message_content = True
-bot = commands.Bot(command_prefix='!', intents=intents)
+bot = commands.Bot(command_prefix='.', intents=intents)
 
 
 @bot.event
@@ -20,7 +20,7 @@ async def on_ready():
     print(f"You are logged in as: {bot.user}")
 
 
-@bot.command(name='mplay', help='Play a song from YouTube')
+@bot.command(name='play', help='Play a song from YouTube')
 async def play(ctx, url):
     if not ctx.message.author.voice:
         await ctx.send('You are not connected to a voice channel!')
@@ -37,7 +37,7 @@ async def play(ctx, url):
         voice_channel.play(discord.FFmpegPCMAudio(info["url"], **ffmpeg_options))
 
 
-@bot.command(name='mstop', help='To the music')
+@bot.command(name='stop', help='To the music')
 async def stop(ctx: discord.ext.commands.Context):
     voice_client = discord.utils.get(bot.voice_clients, guild=ctx.guild)
     if voice_client.is_playing():
